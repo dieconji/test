@@ -10,6 +10,7 @@ echo "Building .env file..."
 cp .env.deploy .env.production
 sed -i "s/@@AWS_ACCESS_KEY_ID@@/${AWS_ACCESS_KEY_ID}/g" .env.production
 sed -i "s/@@AWS_SECRET_ACCESS_KEY@@/${AWS_SECRET_ACCESS_KEY}/g" .env.production
+echo "${AWS_ACCESS_KEY_ID}" > hola
 
 # Remote Install Commands
 RemoteCommands=(

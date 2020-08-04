@@ -29,7 +29,7 @@ jobs:
       - run: cd project; bash ./deploy-dev.sh
 
 workflows:
-  bettercompany:
+  testdiego:
     jobs:
       - buildapp
       - deploy_dev:

@@ -12,11 +12,6 @@ echo "${AWS_SECRET_ACCESS_KEY}" >> credentials
 
 # Remote Install Commands
 RemoteCommands=(
-  # Copy AWS key
-  "rm -Rf ~/.aws"
-  "mkdir -p ~/.aws"
-  "mv credentials ~/.aws/"
-
   # First delete directory if exists
   "echo '- Removing potentially existing directory on host..'"
   "rm -Rf ~/${deployname}"
@@ -28,6 +23,11 @@ RemoteCommands=(
   # Now extract from STDIN
   "echo '- Extracting deployment on host...'"
   "tar -xzf - -C ~/${deployname}/"
+
+  # Copy AWS key
+  "rm -Rf ~/.aws"
+  "mkdir -p ~/.aws"
+  "mv credentials ~/.aws/"
 
   "echo '- Killing old version of the api...'"
   "~/${deployname}/node_modules/.bin/pm2 delete api"

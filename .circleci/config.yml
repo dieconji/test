@@ -1,8 +1,40 @@
 version: 2.1
 orbs:
-  node: circleci/node@3.0.0
+  slack: circleci/slack@3.4.2
   aws-parameter-store: circleci/aws-parameter-store@1.0.0
+jobs:
+  buildapp:
+    docker:
+      - image: cimg/node:12.18.0
+    steps:
+      - checkout
+      - run: npm ci
+      - store_test_results:
+          path: "coverage"
+      - store_artifacts:
+          path: "coverage"
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
+  deploy_dev:
+    docker:
+      - image: cimg/node:12.18.0
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "c8:88:a1:a9:a2:2b:33:fd:a4:e4:85:4d:a3:96:3b:0b"
+      - attach_workspace:
+          at: .
+      - run: cd project; bash ./deploy-dev.sh
+
 workflows:
-  node-tests:
+  bettercompany:
     jobs:
-      - node/test
+      - buildapp
+      - deploy_dev:
+          requires:
+            - buildapp
+          filters:
+            branches:
+              only: master

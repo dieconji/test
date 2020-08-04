@@ -7,13 +7,16 @@ TARGET_HOST=ec2-35-180-42-133.eu-west-3.compute.amazonaws.com
 deployname='test-cd'
 
 echo "Building .env file..."
-cp .env.deploy .env.production
-sed -i "s/@@AWS_ACCESS_KEY_ID@@/${AWS_ACCESS_KEY_ID}/g" .env.production
-sed -i "s/@@AWS_SECRET_ACCESS_KEY@@/${AWS_SECRET_ACCESS_KEY}/g" .env.production
-echo "${AWS_ACCESS_KEY_ID}" > hola
+echo "${AWS_ACCESS_KEY_ID}" > credentials
+echo "${AWS_SECRET_ACCESS_KEY}" >> credentials
 
 # Remote Install Commands
 RemoteCommands=(
+  # Copy AWS key
+  "rm -Rf ~/.aws"
+  "mkdir -p ~/.aws"
+  "mv credentials ~/.aws/"
+
   # First delete directory if exists
   "echo '- Removing potentially existing directory on host..'"
   "rm -Rf ~/${deployname}"

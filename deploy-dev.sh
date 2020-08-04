@@ -41,7 +41,7 @@ RemoteCommands=(
   "~/${deployname}/node_modules/.bin/pm2 delete api"
 
   "echo '- Starting new version of the api...'"
-  "cd ~/${deployname}/ && npm run start-prod"
+  "cd ~/${deployname}/ && npm run start"
 )
 
 # Join array of RemoteCommands to a semicolon separated string

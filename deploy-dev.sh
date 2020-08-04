@@ -6,9 +6,10 @@ TARGET_HOST=ec2-35-180-42-133.eu-west-3.compute.amazonaws.com
 
 deployname='test-cd'
 
-echo "Building .env file..."
-echo "${AWS_ACCESS_KEY_ID}" > credentials
-echo "${AWS_SECRET_ACCESS_KEY}" >> credentials
+echo "Building aws credentials file..."
+echo "[default]" > credentials
+echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}" >> credentials
+echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" >> credentials
 
 # Remote Install Commands
 RemoteCommands=(

@@ -27,7 +27,7 @@ RemoteCommands=(
   # Copy AWS key
   "rm -Rf ~/.aws"
   "mkdir -p ~/.aws"
-  "mv credentials ~/.aws/"
+  "mv ~/${deployname}/credentials ~/.aws/"
 
   "echo '- Killing old version of the api...'"
   "~/${deployname}/node_modules/.bin/pm2 delete api"

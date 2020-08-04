@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "NODE_PATH=. jest . --runInBand --forceExit"
+    "test": "NODE_PATH=. jest . --passWithNoTests --runInBand --forceExit"
   },
   "repository": {
     "type": "git",

@@ -25,9 +25,6 @@ RemoteCommands=(
   "echo '- Extracting deployment on host...'"
   "tar -xzf - -C ~/${deployname}/"
 
-  "echo '- Running migrations...'"
-  "cd ~/${deployname}/ && NODE_ENV=production npm run migrate"
-
   "echo '- Killing old version of the api...'"
   "~/${deployname}/node_modules/.bin/pm2 delete api"
 

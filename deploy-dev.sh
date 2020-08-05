@@ -6,11 +6,6 @@ TARGET_HOST=ec2-35-180-42-133.eu-west-3.compute.amazonaws.com
 
 deployname='test-cd'
 
-echo "Building aws credentials file..."
-echo "[default]" > credentials
-echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}" >> credentials
-echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" >> credentials
-
 # Remote Install Commands
 RemoteCommands=(
   # First delete directory if exists
@@ -24,11 +19,6 @@ RemoteCommands=(
   # Now extract from STDIN
   "echo '- Extracting deployment on host...'"
   "tar -xzf - -C ~/${deployname}/"
-
-  # Copy AWS key
-  "rm -Rf ~/.aws"
-  "mkdir -p ~/.aws"
-  "mv ~/${deployname}/credentials ~/.aws/"
 
   "echo '- Killing old version of the api...'"
   "~/${deployname}/node_modules/.bin/pm2 delete api"

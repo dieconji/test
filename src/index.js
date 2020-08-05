@@ -1,33 +1,45 @@
-const loadSecret = require('./load-secret');
+/*
 const mysql = require('mysql');
-let user;
-let pass;
 
-async function getParam()
-{
-  [user, pass] = await Promise.all([
-    loadSecret('/app/dev/mysql_user'),
-    loadSecret('/app/dev/mysql_pass')
-  ]);
 
-  const con = mysql.createConnection({
-    host: 'localhost',
-    user: user,
-    password: pass,
-  });
-  
-  con.connect((err) => {
-    if(err){
-      console.log('Error connecting to Db');
-      return;
-    }
-    console.log('Connection established');
-  });
-  
-  con.end((err) => {
+console.log(mysqlConfig)
 
-  });
-}
+const con = mysql.createConnection({
+  host: 'localhost',
+  user: mysqlConfig.user,
+  password: mysqlConfig.password,
+});
 
-getParam();
+con.connect((err) => {
+  if(err){
+    console.log('Error connecting to Db');
+    return;
+  }
+  console.log('Connection established');
+});
 
+con.end((err) => {
+
+});
+*/
+
+(async () => {
+  try {
+    console.log('eo');
+    const { mysqlConfig } = await require('./vars');
+
+    console.log(mysqlConfig);
+  } catch (e) {
+    console.log(e);
+  }
+})();
+
+/*
+main()
+    .then(text => {
+        console.log('text');
+    })
+    .catch(err => {
+        // Deal with the fact the chain failed
+    });
+    */

@@ -19,7 +19,9 @@ const mysql = require('mysql');
     });
     
     con.end((err) => {
-      console.log(err);
+      if (err) {
+        console.log(err);
+      }
     });
   } catch (e) {
     console.log(e);

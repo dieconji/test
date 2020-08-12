@@ -49,8 +49,8 @@ jobs:
             echo "aws_secret_access_key=$DEMO_AWS_SECRET_ACCESS_KEY" >> ~/.aws/config
       - run: sh ./prepare-demo.sh
       - run: zip app.zip -r --symlinks * .[^.]*
+      - run: eb init
       - run: eb deploy --staged
-      - slack/status
 
 workflows:
   testdiego:

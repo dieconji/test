@@ -1,0 +1,19 @@
+branch-defaults:
+  marketing:
+    environment: marketing-env
+environment-defaults:
+  marketing-env:
+    branch: null
+    repository: null
+global:
+  application_name: marketing-webapp
+  default_region: eu-west-3
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  sc: git
+  workspace_type: Application
+deploy:
+  artifact: app.zip

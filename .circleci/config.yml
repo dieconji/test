@@ -27,6 +27,29 @@ jobs:
       - attach_workspace:
           at: .
       - run: cd project; bash ./deploy-dev.sh
+  deploy_marketing:
+    docker:
+      - image: circleci/python
+    working_directory: ~/project
+    steps:
+      - attach_workspace:
+          at: ~/.
+      - run:
+          name: Install awscli
+          command: |
+            sudo pip install awsebcli --upgrade
+      - run:
+          name: Create AWS credentials manually
+          command: |
+            mkdir ~/.aws
+            touch ~/.aws/config
+            chmod 600 ~/.aws/config
+            echo "[profile eb-cli]" > ~/.aws/config
+            echo "aws_access_key_id=$DEMO_AWS_ACCESS_KEY_ID" >> ~/.aws/config
+            echo "aws_secret_access_key=$DEMO_AWS_SECRET_ACCESS_KEY" >> ~/.aws/config
+      - run: sh ./prepare-demo.sh
+      - run: zip app.zip -r --symlinks * .[^.]*
+      - run: eb deploy --staged
 
 workflows:
   testdiego:
@@ -38,3 +61,10 @@ workflows:
           filters:
             branches:
               only: master
+      - deploy_marketing:
+          requires:
+            - buildapp
+          filters:
+            branches:
+              only: marketing
+

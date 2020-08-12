@@ -1,29 +1,14 @@
-const mysql = require('mysql');
+var http = require("http");
 
-(async () => {
-  try {
-    const { mysqlConfig } = await require('./vars');
+http.createServer(function (request, response) {
+   // Send the HTTP header 
+   // HTTP Status: 200 : OK
+   // Content Type: text/plain
+   response.writeHead(200, {'Content-Type': 'text/plain'});
+   
+   // Send the response body as "Hello World"
+   response.end('Hello World\n');
+}).listen(80);
 
-    const con = mysql.createConnection({
-      host: 'localhost',
-      user: mysqlConfig.user,
-      password: mysqlConfig.password,
-    });
-    
-    con.connect((err) => {
-      if(err){
-        console.log('Error connecting to Db');
-        return;
-      }
-      console.log('Connection established');
-    });
-    
-    con.end((err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  } catch (e) {
-    console.log(e);
-  }
-})();
+// Console will print the message
+console.log('Server running at http://127.0.0.1:80/');
